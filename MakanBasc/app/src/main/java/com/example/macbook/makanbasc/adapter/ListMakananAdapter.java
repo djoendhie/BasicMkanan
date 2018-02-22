@@ -1,6 +1,7 @@
 package com.example.macbook.makanbasc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.macbook.makanbasc.R;
+import com.example.macbook.makanbasc.activity.DetailMakananActivity;
 import com.example.macbook.makanbasc.helper.MyConstant;
 import com.example.macbook.makanbasc.helper.MyFunction;
 import com.example.macbook.makanbasc.model.MakananItem;
@@ -40,13 +42,27 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ListMakananAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(ListMakananAdapter.MyViewHolder holder, final int position) {
 
         holder.txtnama.setText(makananl.get(position).getNama1());
         holder.txtharga.setText(makananl.get(position).getHarga1());
         holder.txtstatus.setText(makananl.get(position).getStatus1());
         Picasso.with(c).load(MyConstant.IMAGE_URL+makananl.get(position).getGambar1())
                 .error(R.drawable.noimage).placeholder(R.drawable.noimage).into(holder.immakanan);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent kirimdata = new Intent(c, DetailMakananActivity.class);
+                kirimdata.putExtra("nm",makananl.get(position).getNama1());
+                kirimdata.putExtra("dm",makananl.get(position).getDetail1());
+                kirimdata.putExtra("gm",makananl.get(position).getGambar1());
+                kirimdata.putExtra("hm",makananl.get(position).getHarga1());
+                kirimdata.putExtra("sm",makananl.get(position).getStatus1());
+                c.startActivity(kirimdata);
+
+            }
+        });
 
     }
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.macbook.makanbasc.adapter.ListMakananAdapter;
 import com.example.macbook.makanbasc.helper.MyConstant;
@@ -102,7 +104,20 @@ public class MainActivity extends SessionManager {
         });
 
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.mn_Logout){
+            sessionManager.logout();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
